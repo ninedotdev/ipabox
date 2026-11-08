@@ -1,0 +1,46 @@
+[package]
+name = "ipabox"
+version = "0.1.0"
+edition = "2024"
+license = "MIT"
+publish = false
+
+# gpui — the wingleeio/zed fork pinned at the same rev comet-main uses
+# (BackdropBlur, EdgeFade, transparent-window alpha fixes; see comet-main's
+# workspace Cargo.toml for the per-commit changelog).
+[dependencies]
+gpui = { git = "https://github.com/wingleeio/zed", rev = "5d1f83d9f27a19bec1fb241dc33b42238af9cf8d" }
+gpui_platform = { git = "https://github.com/wingleeio/zed", rev = "5d1f83d9f27a19bec1fb241dc33b42238af9cf8d", features = [
+    "font-kit",
+    "runtime_shaders",
+] }
+gpui_tokio = { git = "https://github.com/wingleeio/zed", rev = "5d1f83d9f27a19bec1fb241dc33b42238af9cf8d" }
+
+tokio = { version = "1", features = ["full"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+anyhow = "1"
+chrono = { version = "0.4", features = ["serde"] }
+rusqlite = { version = "0.32", features = ["bundled", "chrono"] }
+regex = "1"
+zip = { version = "2", default-features = false, features = ["deflate"] }
+plist = "1"
+image = { version = "0.25", default-features = false, features = ["png"] }
+flate2 = "1"
+crc32fast = "1"
+mdns-sd = "0.13"
+md5 = "0.7"
+dirs = "5"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+unicode-segmentation = "1"
+
+[profile.release]
+lto = "thin"
+strip = "symbols"
+
+[profile.dev]
+opt-level = 0
+
+[profile.dev.package."*"]
+opt-level = 2

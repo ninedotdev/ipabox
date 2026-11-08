@@ -1,0 +1,6 @@
+/target
+/dist
+# 84 MB Apple-ID signing helper, copied into the bundle by package.sh.
+/vendor/plumesign
+/vendor/plumesign.*
+.DS_Store
